@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://coep7yqr1pr5x"]
+[gd_scene load_steps=7 format=3 uid="uid://coep7yqr1pr5x"]
 
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_0qxqa"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_bc51u"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_knajx"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_mrmx0"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_32p2k"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_mrmx0"]
 
@@ -18,6 +19,10 @@ tracker = &"left_hand"
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("2_bc51u")]
 strafe = true
 
+[node name="FunctionPointer" parent="LeftHand" instance=ExtResource("3_mrmx0")]
+show_laser = 2
+laser_length = 1
+
 [node name="RightHand" type="XRController3D" parent="."]
 tracker = &"right_hand"
 
@@ -26,5 +31,9 @@ tracker = &"right_hand"
 [node name="MovementTurn" parent="RightHand" instance=ExtResource("4_32p2k")]
 turn_mode = 1
 step_turn_angle = 45.0
+
+[node name="FunctionPointer" parent="RightHand" instance=ExtResource("3_mrmx0")]
+show_laser = 2
+laser_length = 1
 
 [node name="PlayerBody" parent="." instance=ExtResource("4_mrmx0")]
