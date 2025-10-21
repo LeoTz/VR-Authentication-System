@@ -17,6 +17,7 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="LeftHand" instance=ExtResource("1_0qxqa")]
 
 [node name="MovementDirect" parent="LeftHand" instance=ExtResource("2_bc51u")]
+max_speed = 10.0
 strafe = true
 
 [node name="FunctionPointer" parent="LeftHand" instance=ExtResource("3_mrmx0")]
