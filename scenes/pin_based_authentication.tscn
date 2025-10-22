@@ -1,6 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctvgim8xqu713"]
+[gd_scene load_steps=13 format=3 uid="uid://ctvgim8xqu713"]
 
 [ext_resource type="PackedScene" uid="uid://coep7yqr1pr5x" path="res://scenes/xr_origin.tscn" id="1_3lhbx"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_viewport"]
+[ext_resource type="PackedScene" uid="uid://bxmg564k1gndt" path="res://scenes/keypad_ui.tscn" id="3_u8au8"]
+[ext_resource type="Script" uid="uid://c41i4ci6ya56x" path="res://scenes/pin_authentication.gd" id="4_auth"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_env"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -30,14 +33,17 @@ render_priority = 1
 size = Vector3(4.076294, 10, 0.1)
 
 [node name="PinBasedAuthentication" type="Node3D"]
+script = ExtResource("4_auth")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_env")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.1196585, 0, 3.1436076, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1436076, 0)
 light_energy = 5.063
-omni_range = 81.752
+omni_range = 7.9458632
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_3lhbx")]
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
@@ -48,9 +54,6 @@ shape = SubResource("BoxShape3D_floor")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/CollisionShape3D"]
 transform = Transform3D(2.683, 0, 0, 0, 1.628, 0, 0, 0, 2.7160707, 0, 0, 0)
 mesh = SubResource("BoxMesh_floor")
-
-[node name="XROrigin3D" parent="." instance=ExtResource("1_3lhbx")]
-transform = Transform3D(1, -8.88174e-16, 0, 0, 1, 0, 0, 0, 1, 0, 0.15823102, 0)
 
 [node name="Wall1" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1.487205e-07, 0, 1, 0, 0.7080507, 0, -3.4023287, 0, -4.371139e-08, -6.681366, 3.3830962, 0)
@@ -96,3 +99,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_whjrn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742279e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 shape = SubResource("BoxShape3D_jg2hw")
+
+[node name="KeypadViewport" parent="." instance=ExtResource("2_viewport")]
+transform = Transform3D(1.1840284, 0, 0, 0, 0.9931603, -0.4254951, 0, 0.4669647, 0.90496075, 0, 1.5, -3.0619345)
+screen_size = Vector2(1.2, 1.6)
+scene = ExtResource("3_u8au8")
+viewport_size = Vector2(600, 800)
+transparent = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("keypad_ui.gd")

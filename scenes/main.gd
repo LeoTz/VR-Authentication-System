@@ -25,3 +25,22 @@ func change_to_scene(scene_path: String):
 	
 	await get_tree().process_frame
 	get_tree().change_scene_to_file(scene_path)
+
+# Add proper cleanup when scene exits
+func _exit_tree():
+	# Clean up viewport first
+	if $Viewport2Din3D:
+		$Viewport2Din3D.enabled = false
+	
+	# Don't uninitialize XR here if changing scenes
+	# Only uninitialize on actual application quit
+
+# Handle application quit properly
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		cleanup_xr()
+
+func cleanup_xr():
+	if xr_interface and xr_interface.is_initialized():
+		xr_interface.uninitialize()
+		print("XR interface cleaned up")
