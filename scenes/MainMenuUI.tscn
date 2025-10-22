@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c2tnw2g0i5s0t" path="res://scenes/main_menu.gd" id="1_xxhk1"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.95, 0.95, 0.95, 1)
 border_width_left = 2
 border_width_top = 2
@@ -14,13 +14,8 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
-bg_color = Color(0.95, 0.95, 0.95, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0.4, 0.4, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(0, 0.4, 0.4, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -38,8 +33,13 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
-bg_color = Color(0, 0.4, 0.4, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4"]
+bg_color = Color(0.95, 0.95, 0.95, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.4, 0.4, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -97,37 +97,37 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="SequentialButton" type="Button" parent="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="PinButton" type="Button" parent="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_colors/font_hover_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_focus_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0.4, 0.4, 1)
+theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxFlat_4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1")
-text = "Sequential Interaction"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4")
+text = "PIN Based"
 
 [node name="SpatialButton" type="Button" parent="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_colors/font_hover_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_focus_color = Color(0, 0.4, 0.4, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0.4, 0.4, 1)
+theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxFlat_4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4")
 text = "Spatial Arrangement"
 
-[connection signal="pressed" from="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer/SequentialButton" to="MainMenu" method="_on_sequential_button_pressed"]
+[connection signal="pressed" from="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer/PinButton" to="MainMenu" method="_on_pin_button_pressed"]
 [connection signal="pressed" from="MainMenu/ColorRect/MarginContainer/VBoxContainer/ButtonContainer/SpatialButton" to="MainMenu" method="_on_spatial_button_pressed"]
