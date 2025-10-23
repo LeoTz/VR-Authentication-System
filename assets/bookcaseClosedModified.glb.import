@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cpkqquwik6son"
-path="res://.godot/imported/table.fbx-e8532fb6618db7af46118df5f784f21d.scn"
+uid="uid://dqnglxhi5ypep"
+path="res://.godot/imported/bookcaseClosedModified.glb-59cc2e13001bb5f1fbdc201bf4675fc1.scn"
 
 [deps]
 
-source_file="res://3d-models/Table/table.fbx"
-dest_files=["res://.godot/imported/table.fbx-e8532fb6618db7af46118df5f784f21d.scn"]
+source_file="res://assets/bookcaseClosedModified.glb"
+dest_files=["res://.godot/imported/bookcaseClosedModified.glb-59cc2e13001bb5f1fbdc201bf4675fc1.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

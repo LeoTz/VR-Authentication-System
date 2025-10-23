@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnwslicak7xut"]
+
+[ext_resource type="Script" uid="uid://cgmjycgd1hvbh" path="res://scripts/spatial_arrangment/shape.gd" id="1_2qewn"]
+[ext_resource type="Script" uid="uid://cvokvbhtxvj8g" path="res://scripts/spatial_arrangment/shape_data.gd" id="2_nodf0"]
+
+[sub_resource type="Resource" id="Resource_ja5is"]
+script = ExtResource("2_nodf0")
+metadata/_custom_type_script = "uid://cvokvbhtxvj8g"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5b3m"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Shape" type="Node3D"]
+script = ExtResource("1_2qewn")
+data = SubResource("Resource_ja5is")
+
+[node name="@CSGBox3D@141476" type="CSGBox3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material = SubResource("StandardMaterial3D_u5b3m")

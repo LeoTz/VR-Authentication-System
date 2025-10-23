@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5ewednjxecxb"
-path.s3tc="res://.godot/imported/WoodSeemles1.jpg-03eefe6760520fb4039025611f0fb822.s3tc.ctex"
+uid="uid://dl2krgwblrfyi"
+path.s3tc="res://.godot/imported/WoodSeemles.jpg-59c2ff279cf541b91bca187af54f3657.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://3d-models/Table/tex/WoodSeemles1.jpg"
-dest_files=["res://.godot/imported/WoodSeemles1.jpg-03eefe6760520fb4039025611f0fb822.s3tc.ctex"]
+source_file="res://assets/Table/tex/WoodSeemles.jpg"
+dest_files=["res://.godot/imported/WoodSeemles.jpg-59c2ff279cf541b91bca187af54f3657.s3tc.ctex"]
 
 [params]
 

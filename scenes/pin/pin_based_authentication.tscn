@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://coep7yqr1pr5x" path="res://scenes/xr_origin.tscn" id="1_3lhbx"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_viewport"]
-[ext_resource type="PackedScene" uid="uid://bxmg564k1gndt" path="res://scenes/keypad_ui.tscn" id="3_u8au8"]
-[ext_resource type="Script" uid="uid://c41i4ci6ya56x" path="res://scenes/pin_authentication.gd" id="4_auth"]
+[ext_resource type="PackedScene" uid="uid://bxmg564k1gndt" path="res://scenes/pin/keypad_ui.tscn" id="3_u8au8"]
+[ext_resource type="Script" uid="uid://c41i4ci6ya56x" path="res://scripts/pin/pin_authentication.gd" id="4_auth"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_env"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -44,6 +44,7 @@ light_energy = 5.063
 omni_range = 7.9458632
 
 [node name="XROrigin3D" parent="." instance=ExtResource("1_3lhbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0465207, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)

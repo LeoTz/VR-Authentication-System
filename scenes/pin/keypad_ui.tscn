@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxmg564k1gndt"]
 
-[ext_resource type="Script" uid="uid://bmgxsgi305gx6" path="res://scenes/keypad_ui.gd" id="1_keypad"]
+[ext_resource type="Script" uid="uid://bmgxsgi305gx6" path="res://scripts/pin/keypad_ui.gd" id="1_keypad"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
 bg_color = Color(0.2, 0.2, 0.2, 1)
