@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://h5ixyu701hg7"]
+
+[ext_resource type="Script" uid="uid://ngrbgrne883n" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_jlr0f"]
+[ext_resource type="Script" uid="uid://wc84rjki4u8l" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_3ye3f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e15sy"]
+
+[node name="Sphere" type="RigidBody3D"]
+script = ExtResource("1_jlr0f")
+second_hand_grab = 1
+metadata/_custom_type_script = "uid://ngrbgrne883n"
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("SphereShape3D_e15sy")
+
+[node name="GrabPointHandLeft" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, -0.08)
+script = ExtResource("2_3ye3f")
+metadata/_custom_type_script = "uid://wc84rjki4u8l"
+
+[node name="GrabPointHandRight" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15019287, 0, -0.10877633)
+script = ExtResource("2_3ye3f")
+hand = 1
+metadata/_custom_type_script = "uid://wc84rjki4u8l"

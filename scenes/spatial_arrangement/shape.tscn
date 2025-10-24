@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnwslicak7xut"]
+
+[ext_resource type="Script" uid="uid://cgmjycgd1hvbh" path="res://scripts/spatial_arrangment/shape.gd" id="1_2qewn"]
+[ext_resource type="Script" uid="uid://cvokvbhtxvj8g" path="res://scripts/spatial_arrangment/shape_data.gd" id="2_nodf0"]
+[ext_resource type="PackedScene" uid="uid://h5ixyu701hg7" path="res://scenes/spatial_arrangement/sphere.tscn" id="3_20ha3"]
+[ext_resource type="Script" uid="uid://ngrbgrne883n" path="res://addons/godot-xr-tools/objects/pickable.gd" id="4_upit0"]
+
+[sub_resource type="Resource" id="Resource_idsvm"]
+script = ExtResource("2_nodf0")
+metadata/_custom_type_script = "uid://cvokvbhtxvj8g"
+
+[node name="Shape" type="Node3D"]
+script = ExtResource("1_2qewn")
+data = SubResource("Resource_idsvm")
+
+[node name="Sphere" type="RigidBody3D" parent="." instance=ExtResource("3_20ha3")]
+script = ExtResource("4_upit0")
+second_hand_grab = 1
+metadata/_custom_type_script = "uid://ngrbgrne883n"

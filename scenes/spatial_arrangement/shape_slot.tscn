@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://052u5iqeyxd7"]
+
+[ext_resource type="PackedScene" uid="uid://dqnglxhi5ypep" path="res://assets/bookcaseClosedModified.glb" id="1_amk0j"]
+[ext_resource type="Script" uid="uid://dya1klgrauos4" path="res://addons/godot-xr-tools/objects/snap_path.gd" id="2_qkc12"]
+
+[sub_resource type="Curve3D" id="Curve3D_qkc12"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_esufl"]
+size = Vector3(0.645, 0.55, 0.75)
+
+[node name="ShapeSlot" instance=ExtResource("1_amk0j")]
+
+[node name="bookcaseClosed(Clone)_001" parent="." index="0"]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="XRToolsSnapPath" type="Area3D" parent="." index="1"]
+script = ExtResource("2_qkc12")
+metadata/_custom_type_script = "uid://dya1klgrauos4"
+
+[node name="Path3D" type="Path3D" parent="XRToolsSnapPath" index="0"]
+curve = SubResource("Curve3D_qkc12")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapPath" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29999998, 0.27000004, -0.120000005)
+shape = SubResource("BoxShape3D_esufl")
+
+[node name="ShapePlaceholder" type="Marker3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30999997, 0.26, -0.23999998)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://fa52g5uavh3n"]
+
+[ext_resource type="Script" uid="uid://ngrbgrne883n" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_5ojvh"]
+[ext_resource type="Script" uid="uid://wc84rjki4u8l" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_l8ht0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uer08"]
+height = 1.0
+
+[node name="Cylinder" type="RigidBody3D"]
+script = ExtResource("1_5ojvh")
+second_hand_grab = 1
+metadata/_custom_type_script = "uid://ngrbgrne883n"
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+height = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("CylinderShape3D_uer08")
+
+[node name="GrabPointHandLeft" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11, 0, -0.07)
+script = ExtResource("2_l8ht0")
+metadata/_custom_type_script = "uid://wc84rjki4u8l"
+
+[node name="GrabPointHandRight" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0, -0.089999996)
+script = ExtResource("2_l8ht0")
+hand = 1
+metadata/_custom_type_script = "uid://wc84rjki4u8l"
