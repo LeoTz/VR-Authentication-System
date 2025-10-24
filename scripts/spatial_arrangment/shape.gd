@@ -51,9 +51,8 @@ func _create_shape(type : ShapeData.Types, color : ShapeData.Colors):
 			shape = null
 	
 	if shape:
-		shape.connect('grabbed', test)
 		# Disable physics
-		#shape.freeze = true
+		shape.freeze = true
 		
 		# Apply the color
 		var mat := StandardMaterial3D.new()
@@ -70,6 +69,3 @@ func _apply_data():
 	if not is_inside_tree():
 		return
 	_create_shape(data.type, data.color)
-
-func test():
-	print("grab")
