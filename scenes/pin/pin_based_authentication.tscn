@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctvgim8xqu713"]
+[gd_scene load_steps=14 format=3 uid="uid://ctvgim8xqu713"]
 
 [ext_resource type="PackedScene" uid="uid://coep7yqr1pr5x" path="res://scenes/xr_origin.tscn" id="1_3lhbx"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="2_viewport"]
 [ext_resource type="PackedScene" uid="uid://bxmg564k1gndt" path="res://scenes/pin/keypad_ui.tscn" id="3_u8au8"]
 [ext_resource type="Script" uid="uid://c41i4ci6ya56x" path="res://scripts/pin/pin_authentication.gd" id="4_auth"]
+[ext_resource type="PackedScene" uid="uid://b2fo3qa41kvl7" path="res://scenes/pin/initial_menu.tscn" id="4_menu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_env"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -101,8 +102,18 @@ surface_material_override/0 = SubResource("StandardMaterial3D_whjrn")
 transform = Transform3D(1, 0, 0, 0, -1, 8.742279e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 shape = SubResource("BoxShape3D_jg2hw")
 
+[node name="MenuViewport" parent="." instance=ExtResource("2_viewport")]
+transform = Transform3D(1.1840284, 0, 0, 0, 0.9931603, -0.4254951, 0, 0.4669647, 0.90496075, 0, 1.5, -3.0619345)
+screen_size = Vector2(1.2, 1.6)
+scene = ExtResource("4_menu")
+viewport_size = Vector2(600, 800)
+transparent = 0
+unshaded = true
+scene_properties_keys = PackedStringArray("initial_menu.gd")
+
 [node name="KeypadViewport" parent="." instance=ExtResource("2_viewport")]
 transform = Transform3D(1.1840284, 0, 0, 0, 0.9931603, -0.4254951, 0, 0.4669647, 0.90496075, 0, 1.5, -3.0619345)
+visible = false
 screen_size = Vector2(1.2, 1.6)
 scene = ExtResource("3_u8au8")
 viewport_size = Vector2(600, 800)
