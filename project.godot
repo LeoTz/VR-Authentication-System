@@ -25,6 +25,10 @@ XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[global_group]
+
+Shape=""
+
 [godot_xr_tools]
 
 player/standard_height=1.5

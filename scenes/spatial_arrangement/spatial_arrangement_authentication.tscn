@@ -151,9 +151,12 @@ step_turn_angle = 45.0
 
 [node name="XRToolsFunctionPickup" type="Node3D" parent="XROrigin3D/RightHand"]
 script = ExtResource("3_00n0t")
+grab_collision_mask = 262149
+ranged_collision_mask = 5
 metadata/_custom_type_script = "uid://cvg3a5bex2g2a"
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_ce4o1")]
+collision_mask = 1021
 
 [node name="Table" type="StaticBody3D" parent="."]
 transform = Transform3D(-4.1387918e-10, 0, -0.012968601, 0, 0.008719808, 0, 0.009468452, 0, -5.668755e-10, -0.004194975, 0.2833146, -2.9629002)

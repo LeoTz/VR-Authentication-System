@@ -52,8 +52,10 @@ func _create_shape(type : ShapeData.Types, color : ShapeData.Colors):
 	
 	if shape:
 		# Disable physics
+		shape.release_mode = XRToolsPickable.ReleaseMode.UNFROZEN
 		shape.freeze = true
-		
+		shape.picked_up_layer = 2
+		shape.add_to_group('Shape')
 		# Apply the color
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = _get_color_from_enum(color)

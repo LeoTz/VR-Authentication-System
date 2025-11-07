@@ -1,28 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://052u5iqeyxd7"]
+[gd_scene load_steps=6 format=3 uid="uid://dvgrd4iilfjx3"]
 
 [ext_resource type="PackedScene" uid="uid://dqnglxhi5ypep" path="res://assets/bookcaseClosedModified.glb" id="1_amk0j"]
-[ext_resource type="Script" uid="uid://dya1klgrauos4" path="res://addons/godot-xr-tools/objects/snap_path.gd" id="2_qkc12"]
+[ext_resource type="Script" uid="uid://dya1klgrauos4" path="res://addons/godot-xr-tools/objects/snap_path.gd" id="3_bnvf3"]
 
-[sub_resource type="Curve3D" id="Curve3D_qkc12"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xkkpe"]
+size = Vector3(0.60424805, 0.5473633, 0.5050049)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_esufl"]
-size = Vector3(0.645, 0.55, 0.75)
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnvf3"]
+size = Vector3(0.5253906, 0.55810547, 1.0732422)
 
-[node name="ShapeSlot" instance=ExtResource("1_amk0j")]
+[sub_resource type="Curve3D" id="Curve3D_xkkpe"]
 
-[node name="bookcaseClosed(Clone)_001" parent="." index="0"]
+[node name="ShapeSlot" type="StaticBody3D"]
+
+[node name="bookcaseClosedModified" parent="." instance=ExtResource("1_amk0j")]
 transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
-[node name="XRToolsSnapPath" type="Area3D" parent="." index="1"]
-script = ExtResource("2_qkc12")
+[node name="ShapePlaceholder" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30999997, 0.26, -0.23999998)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29861903, 0.2708851, -0.24749756)
+shape = SubResource("BoxShape3D_xkkpe")
+
+[node name="XRToolsSnapPath" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.26, -0.24)
+script = ExtResource("3_bnvf3")
+snap_mode = 1
+snap_require = "Shape"
 metadata/_custom_type_script = "uid://dya1klgrauos4"
 
-[node name="Path3D" type="Path3D" parent="XRToolsSnapPath" index="0"]
-curve = SubResource("Curve3D_qkc12")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009018838, -0.0023101568, 0.28759766)
+shape = SubResource("BoxShape3D_bnvf3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapPath" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29999998, 0.27000004, -0.120000005)
-shape = SubResource("BoxShape3D_esufl")
-
-[node name="ShapePlaceholder" type="Marker3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30999997, 0.26, -0.23999998)
+[node name="Path3D" type="Path3D" parent="XRToolsSnapPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31, 0.26, -0.24)
+curve = SubResource("Curve3D_xkkpe")

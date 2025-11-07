@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvgrd4iilfjx3"]
+
+[ext_resource type="PackedScene" uid="uid://dqnglxhi5ypep" path="res://assets/bookcaseClosedModified.glb" id="1_amk0j"]
+[ext_resource type="Script" uid="uid://d1m437jndu5ow" path="res://scenes/spatial_arrangement/shape_slot.gd" id="1_bnvf3"]
+[ext_resource type="Script" uid="uid://cddkke24eplce" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="2_v6kvr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnvf3"]
+
+[node name="ShapeSlot" type="StaticBody3D"]
+script = ExtResource("1_bnvf3")
+
+[node name="bookcaseClosedModified" parent="." instance=ExtResource("1_amk0j")]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="ShapePlaceholder" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.30999997, 0.26, -0.23999998)
+
+[node name="XRToolsSnapZone" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_v6kvr")
+snap_require = "Shape"
+metadata/_custom_type_script = "uid://cddkke24eplce"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16180062, 0.13951945, 0)
+shape = SubResource("BoxShape3D_bnvf3")
+
+[connection signal="has_picked_up" from="XRToolsSnapZone" to="." method="_on_xr_tools_snap_zone_has_picked_up"]

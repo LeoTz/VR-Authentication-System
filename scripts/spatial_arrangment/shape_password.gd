@@ -1,8 +1,8 @@
 @tool
 extends Node3D
 
-const SHAPE_SLOT = preload("uid://052u5iqeyxd7")
 var password : Array[ShapeData]
+const SHAPE_SLOT = preload("uid://dvgrd4iilfjx3")
 
 @export_category("Configuration")
 @export var num_slots : int = 4:
@@ -20,6 +20,8 @@ func _reset_slots():
 	# Create new slots stacked on each other
 	for i in range(num_slots):
 		var slot = SHAPE_SLOT.instantiate()
+		slot.name = "Slot{0}".format([i+1])
+
 		add_child(slot)
 		slot.position.y = i * 0.540
 		

@@ -2,7 +2,7 @@
 extends Node3D
 
 const SHAPE = preload("uid://cnwslicak7xut")
-const SHAPE_SLOT = preload("uid://052u5iqeyxd7")
+const SHAPE_SLOT = preload("uid://dvgrd4iilfjx3")
 
 # len() - 1 to remove the empty type and color
 const num_shape_types = len(ShapeData.Types) - 1
