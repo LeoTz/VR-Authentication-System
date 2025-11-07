@@ -8,6 +8,10 @@ const SHAPE_SLOT = preload("uid://dvgrd4iilfjx3")
 const num_shape_types = len(ShapeData.Types) - 1
 const num_shape_colors = len(ShapeData.Colors) - 1
 
+func _ready() -> void:
+	# instantiate any empty table/grid and populate it with the available shapes
+	var shape_table = _create_empty_table()
+	_populate_table(shape_table)
 
 func _range_random(n: int) -> Array:
 	var arr = []
@@ -42,9 +46,11 @@ func _populate_table(shape_table : Array):
 			
 			var shape = SHAPE.instantiate()
 			shape.data = ShapeData.new(type_idx, color_idx)
-			
+			var slot_snap_zone : XRToolsSnapZone = shape_table[row_pos][col_pos].get_node('%SlotSnapZone')
 			# Add shape to the corresponding slot in the table
-			shape_table[row_pos][col_pos].get_node("ShapePlaceholder").add_child(shape)
+			slot_snap_zone.add_child(shape)
+			call_deferred('_init_snap_zone', slot_snap_zone, shape)
+
 
 func _create_empty_table():
 	var shape_table : Array
@@ -58,7 +64,7 @@ func _create_empty_table():
 			shape_table[i].append(slot) 
 	return shape_table
 
-func _ready() -> void:
-	# instantiate any empty table/grid and populate it with the available shapes
-	var shape_table = _create_empty_table()
-	_populate_table(shape_table)
+func _init_snap_zone(slot_snap_zone, shape):
+	slot_snap_zone.initial_object = shape.get_child(0).get_path()
+	slot_snap_zone.snap_exclude = 'Shape'
+	slot_snap_zone.spawn_again = true

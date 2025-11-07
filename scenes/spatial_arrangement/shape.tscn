@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://cvokvbhtxvj8g"
 script = ExtResource("1_2qewn")
 data = SubResource("Resource_20ha3")
 
-[node name="Cube" type="RigidBody3D" parent="." instance=ExtResource("3_20ha3")]
+[node name="@RigidBody3D@52480" type="RigidBody3D" parent="." instance=ExtResource("3_20ha3")]
 freeze = true
 script = ExtResource("4_upit0")
 picked_up_layer = 2

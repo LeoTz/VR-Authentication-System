@@ -7,7 +7,7 @@ extends Area3D
 signal has_picked_up(what)
 
 ## Signal emitted when the snap-zone drops something
-signal has_dropped
+signal has_dropped()
 
 # Signal emitted when the highlight state changes
 signal highlight_updated(pickable, enable)
@@ -48,8 +48,13 @@ enum SnapMode {
 @export var grab_exclude : String= ""
 
 ## Initial object in snap zone
-@export var initial_object : NodePath
+@export var initial_object : NodePath:
+	set(value):
+		initial_object = value
+		_initial_object_check()
 
+## Spawn the snapped object once grabbed out of snap zone
+@export var spawn_again : bool = false
 
 # Public fields
 var closest_object : Node3D = null
@@ -163,11 +168,34 @@ func drop_object() -> void:
 	if not is_instance_valid(picked_up_object):
 		return
 
-	# let go of this object
-	picked_up_object.let_go(self, Vector3.ZERO, Vector3.ZERO)
-	picked_up_object = null
+	var old_object = picked_up_object
+	var dup : Node3D
+
+	# Duplicate the object if we want to respawn it
+	if spawn_again:
+		dup = old_object.duplicate()
+		dup.name = old_object.name + "_respawn"
+
+	# Let go of this object normally
+	old_object.let_go(self, Vector3.ZERO, Vector3.ZERO)
 	has_dropped.emit()
+
+	# Remove reference to old object
+	picked_up_object = null
+
+	# Add the duplicate to the scene at this snap zone’s position
+	if spawn_again and is_instance_valid(dup):
+		if get_tree() and get_tree().root and old_object.get_parent():
+			var parent = old_object.get_parent()
+			parent.add_child(dup)
+			dup.global_transform = self.global_transform
+
+			# Optionally call pick_up_object immediately to “snap it in”
+			pick_up_object(dup)
+
+	# Update highlight
 	highlight_updated.emit(self, enabled)
+
 
 
 # Check for an initial object pickup
