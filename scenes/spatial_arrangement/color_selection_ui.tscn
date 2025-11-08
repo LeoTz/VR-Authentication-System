@@ -1,0 +1,242 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc0go53avy2np"]
+
+[ext_resource type="Script" uid="uid://bul4jtrsqrv31" path="res://scripts/spatial_arrangment/color_selection_ui.gd" id="1_1g8xx"]
+
+[node name="ColorSelectionUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1g8xx")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.536
+anchor_bottom = 0.76500005
+offset_right = 117.527954
+offset_bottom = 80.27997
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Choose Your Color"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer1" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RedButton" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Red"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row1/RedButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0.1, 0.1, 1)
+
+[node name="GreenButton" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Green"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row1/GreenButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.8, 0.1, 1)
+
+[node name="BlueButton" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Blue"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row1/BlueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.1, 0.8, 1)
+
+[node name="Row2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="YellowButton" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Yellow"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row2/YellowButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.9, 0.9, 0.1, 1)
+
+[node name="PurpleButton" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Purple"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row2/PurpleButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.7, 0.1, 0.8, 1)
+
+[node name="OrangeButton" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Orange"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row2/OrangeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.5, 0.1, 1)
+
+[node name="Row3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CyanButton" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Cyan"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row3/CyanButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.8, 0.8, 1)
+
+[node name="PinkButton" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Pink"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row3/PinkButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.4, 0.7, 1)
+
+[node name="WhiteButton" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "White"
+
+[node name="ColorRect" type="ColorRect" parent="Panel/VBoxContainer/Row3/WhiteButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.95, 0.95, 0.95, 1)

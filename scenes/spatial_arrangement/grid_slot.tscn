@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://grid_slot"]
+
+[ext_resource type="Script" path="res://scripts/spatial_arrangment/grid_slot.gd" id="1_slot"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_slot"]
+size = Vector3(0.24, 0.24, 0.24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_slot"]
+size = Vector3(0.35, 0.35, 0.35)
+
+[node name="GridSlot" type="Node3D"]
+script = ExtResource("1_slot")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_slot")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 262144
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("BoxShape3D_slot")

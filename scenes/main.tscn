@@ -82,7 +82,7 @@ transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 5, 2.5
 shape = SubResource("BoxShape3D_wall")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.7172261e-15, 1, -0.26229542, -1.1151538, -1.656394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.7172261e-15, 1, 0.017833665, -0.06676912, -0.007940769)
 material_override = SubResource("StandardMaterial3D_wall")
 mesh = SubResource("BoxMesh_wall")
 

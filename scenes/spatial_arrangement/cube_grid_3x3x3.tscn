@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cube_grid_3x3x3"]
+
+[ext_resource type="Script" path="res://scripts/spatial_arrangment/cube_grid_3x3x3.gd" id="1_grid"]
+
+[node name="CubeGrid3x3x3" type="Node3D" groups=["cube_grid"]]
+script = ExtResource("1_grid")
+
+[node name="GridSlots" type="Node3D" parent="."]
