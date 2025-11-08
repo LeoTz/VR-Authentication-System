@@ -4,4 +4,3 @@
 
 [node name="ShapeTable" type="Node3D"]
 script = ExtResource("1_hbd6u")
-chosen_shapes = Array[int]([1, 0])

@@ -30,7 +30,7 @@ func _reset_slots():
 		slot_snap_zone.has_picked_up.connect(_on_shape_added_to_slot.bind(i))
 		slot_snap_zone.has_dropped.connect(_on_shape_removed_from_slot.bind(i))
 		add_child(slot)
-		slot.position.y = i * 0.540
+		slot.position.y = i * 0.27
 		
 		# set default to be empty
 		password.append(EMPTY_SLOT)

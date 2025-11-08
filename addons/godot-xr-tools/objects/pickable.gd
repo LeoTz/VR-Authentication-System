@@ -302,7 +302,7 @@ func pick_up(by: Node3D) -> void:
 			restore_freeze = freeze
 
 	# turn off physics on our pickable object
-	freeze = true
+	freeze = false
 	collision_layer = picked_up_layer
 	collision_mask = 0
 

@@ -7,7 +7,7 @@ extends Area3D
 signal has_picked_up(what)
 
 ## Signal emitted when the snap-zone drops something
-signal has_dropped()
+signal has_dropped(what)
 
 # Signal emitted when the highlight state changes
 signal highlight_updated(pickable, enable)
@@ -178,7 +178,7 @@ func drop_object() -> void:
 
 	# Let go of this object normally
 	old_object.let_go(self, Vector3.ZERO, Vector3.ZERO)
-	has_dropped.emit()
+	has_dropped.emit(old_object)
 
 	# Remove reference to old object
 	picked_up_object = null

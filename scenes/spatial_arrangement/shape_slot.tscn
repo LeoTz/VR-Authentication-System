@@ -7,12 +7,15 @@
 size = Vector3(0.60424805, 0.5473633, 0.5050049)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bnvf3"]
-size = Vector3(0.6, 0.535, 4)
+size = Vector3(0.6, 0.535, 0.5)
 
 [node name="ShapeSlot" type="StaticBody3D"]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+collision_layer = 2
 
 [node name="bookcaseClosedModified" parent="." instance=ExtResource("1_amk0j")]
-transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.5, 0, 0, 0, 0.435, 0, 0, 0, 2, 0, 0, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29861903, 0.2708851, -0.24749756)
@@ -25,5 +28,5 @@ script = ExtResource("2_v6kvr")
 metadata/_custom_type_script = "uid://cddkke24eplce"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SlotSnapZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010857105, 0.010882169, 1.7335176)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010857105, 0.010882169, -0.008653998)
 shape = SubResource("BoxShape3D_bnvf3")

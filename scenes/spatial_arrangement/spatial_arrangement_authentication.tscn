@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_ce4o1"]
 [ext_resource type="Texture2D" uid="uid://b5ewednjxecxb" path="res://assets/Table/tex/WoodSeemles1.jpg" id="6_uttlm"]
 [ext_resource type="PackedScene" uid="uid://ddrm0d56gt64h" path="res://scenes/spatial_arrangement/shape_table.tscn" id="7_kqwmr"]
-[ext_resource type="PackedScene" uid="uid://buwwnmn7h4ymv" path="res://scenes/spatial_arrangement/shape_password.tscn" id="8_00n0t"]
+[ext_resource type="PackedScene" uid="uid://kqrq35pgeb0d" path="res://scenes/spatial_arrangement/cube_grid_3x3x3.tscn" id="13_uttlm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibkok"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -95,6 +95,7 @@ mesh = SubResource("BoxMesh_4sddj")
 
 [node name="WallSouth" type="StaticBody3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.45, 5)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
 shape = SubResource("BoxShape3D_k3f2j")
@@ -129,6 +130,7 @@ transform = Transform3D(1, -8.88174e-16, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.5064082
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.08000004, -0.36)
 tracker = &"left_hand"
 
 [node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("1_uttlm")]
@@ -140,10 +142,16 @@ strafe = true
 script = ExtResource("3_00n0t")
 metadata/_custom_type_script = "uid://cvg3a5bex2g2a"
 
+[node name="ShapeTable" parent="XROrigin3D/LeftHand" instance=ExtResource("7_kqwmr")]
+transform = Transform3D(1.9106853e-15, -1, -4.3711385e-08, -4.371138e-08, -4.371139e-08, 0.9999999, -0.99999994, -8.88174e-16, -4.371138e-08, -0.02000001, 0.029999971, 0.37359178)
+chosen_shapes = Array[int]([3, 1, 2, 0])
+
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.08, -0.36)
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("4_g3g01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17999999, 0, 0)
 
 [node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("5_i2rfh")]
 turn_mode = 1
@@ -159,7 +167,7 @@ metadata/_custom_type_script = "uid://cvg3a5bex2g2a"
 collision_mask = 1021
 
 [node name="Table" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.1387918e-10, 0, -0.012968601, 0, 0.008719808, 0, 0.009468452, 0, -5.668755e-10, -0.004194975, 0.2833146, -2.9629002)
+transform = Transform3D(-3.9340248e-10, 0, -0.013, 0, 0.009, 0, 0.009, 0, -5.6824806e-10, -0.004194975, 0.2833146, -2.9629002)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Table"]
 material_override = SubResource("StandardMaterial3D_axbcy")
@@ -177,8 +185,5 @@ shape = SubResource("BoxShape3D_table_top")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 2.0250468e-13, 0, 1, 0, 10, -1.4372602)
 shape = SubResource("BoxShape3D_table_legs")
 
-[node name="ShapeTable" parent="." instance=ExtResource("7_kqwmr")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.247418, 0.050000023, -1.6680641)
-
-[node name="ShapePassword" parent="." instance=ExtResource("8_00n0t")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.98999995, 0.74, -2.49)
+[node name="CubeGrid3x3x3" parent="." instance=ExtResource("13_uttlm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17553, -2.8414083)

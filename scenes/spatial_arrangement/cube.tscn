@@ -1,24 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://cy2q6kfcih4gr"]
+[gd_scene load_steps=12 format=3 uid="uid://cy2q6kfcih4gr"]
 
 [ext_resource type="Script" uid="uid://ngrbgrne883n" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_08vx8"]
 [ext_resource type="Script" uid="uid://wc84rjki4u8l" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_2gvj0"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="3_ahfjt"]
+[ext_resource type="Animation" uid="uid://bi1l6lre2w2lp" path="res://addons/godot-xr-tools/hands/animations/left/Hold.res" id="3_crpx1"]
 [ext_resource type="Script" uid="uid://buu85x0idwh5v" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd" id="4_2gvj0"]
 [ext_resource type="Script" uid="uid://disvih6j8e0gj" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_ihhpm"]
 [ext_resource type="Animation" uid="uid://do01jton6rk42" path="res://addons/godot-xr-tools/hands/animations/right/Cup.res" id="5_ihhpm"]
+[ext_resource type="Animation" uid="uid://bv5tuc1kjv0k5" path="res://addons/godot-xr-tools/hands/animations/right/Hold.res" id="6_yx7fd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ahfjt"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="Resource" id="Resource_crpx1"]
 script = ExtResource("4_ihhpm")
 open_pose = ExtResource("3_ahfjt")
-closed_pose = ExtResource("3_ahfjt")
+closed_pose = ExtResource("3_crpx1")
 metadata/_custom_type_script = "uid://disvih6j8e0gj"
 
 [sub_resource type="Resource" id="Resource_yx7fd"]
 script = ExtResource("4_ihhpm")
 open_pose = ExtResource("5_ihhpm")
-closed_pose = ExtResource("5_ihhpm")
+closed_pose = ExtResource("6_yx7fd")
 metadata/_custom_type_script = "uid://disvih6j8e0gj"
 
 [node name="Cube" type="RigidBody3D"]
@@ -29,19 +32,20 @@ metadata/_custom_type_script = "uid://ngrbgrne883n"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 shape = SubResource("BoxShape3D_ahfjt")
 
 [node name="GrabPointHandLeft" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20286298, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09286298, 0.009999998, 0)
 script = ExtResource("2_2gvj0")
 hand_pose = SubResource("Resource_crpx1")
 metadata/_custom_type_script = "uid://wc84rjki4u8l"
 
 [node name="GrabPointHandRight" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18140541, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093, 0.010000002, 0)
 script = ExtResource("2_2gvj0")
 hand = 1
 hand_pose = SubResource("Resource_yx7fd")
