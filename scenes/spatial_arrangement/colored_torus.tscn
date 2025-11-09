@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkcyl5s4pyn0r"]
+
+[ext_resource type="Script" path="res://scripts/spatial_arrangment/colored_shape.gd" id="1_colored_torus"]
+[ext_resource type="Script" uid="uid://wc84rjki4u8l" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_grab_point"]
+[ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="3_left_cup"]
+[ext_resource type="Script" uid="uid://disvih6j8e0gj" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_pose_settings"]
+[ext_resource type="Animation" uid="uid://do01jton6rk42" path="res://addons/godot-xr-tools/hands/animations/right/Cup.res" id="5_right_cup"]
+[ext_resource type="Script" uid="uid://buu85x0idwh5v" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd" id="6_highlight"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_torus"]
+size = Vector3(0.2, 0.06, 0.2)
+
+[sub_resource type="Resource" id="Resource_left_pose"]
+script = ExtResource("4_pose_settings")
+open_pose = ExtResource("3_left_cup")
+closed_pose = ExtResource("3_left_cup")
+
+[sub_resource type="Resource" id="Resource_right_pose"]
+script = ExtResource("4_pose_settings")
+open_pose = ExtResource("5_right_cup")
+closed_pose = ExtResource("5_right_cup")
+
+[node name="ColoredTorus" type="RigidBody3D"]
+collision_layer = 262147
+collision_mask = 3
+mass = 0.1
+script = ExtResource("1_colored_torus")
+picked_up_layer = 2
+second_hand_grab = 1
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+inner_radius = 0.06
+outer_radius = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_torus")
+
+[node name="GrabPointHandLeft" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21, 0.05, 0)
+script = ExtResource("2_grab_point")
+hand_pose = SubResource("Resource_left_pose")
+
+[node name="GrabPointHandRight" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22, 0.05, 0)
+script = ExtResource("2_grab_point")
+hand = 1
+hand_pose = SubResource("Resource_right_pose")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="."]
+script = ExtResource("6_highlight")

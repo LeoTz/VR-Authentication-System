@@ -48,8 +48,6 @@ func _create_grid():
 				# Make sure it's owned by the scene root for persistence
 				if Engine.is_editor_hint():
 					slot.owner = get_tree().edited_scene_root
-	
-	print("Created 3x3x3 cube grid with ", GRID_SIZE * GRID_SIZE * GRID_SIZE, " interactive slots")
 
 func get_slot_at_position(grid_pos: Vector3i) -> Node3D:
 	return slot_map.get(grid_pos, null)

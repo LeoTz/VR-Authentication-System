@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://grid_slot"]
+[gd_scene load_steps=5 format=3 uid="uid://grid_slot"]
 
 [ext_resource type="Script" path="res://scripts/spatial_arrangment/grid_slot.gd" id="1_slot"]
+[ext_resource type="Script" uid="uid://cddkke24eplce" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="2_snap"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_slot"]
 size = Vector3(0.24, 0.24, 0.24)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_slot"]
-size = Vector3(0.35, 0.35, 0.35)
+size = Vector3(0.24, 0.24, 0.24)
 
 [node name="GridSlot" type="Node3D"]
 script = ExtResource("1_slot")
@@ -14,10 +15,14 @@ script = ExtResource("1_slot")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_slot")
 
-[node name="DetectionArea" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 262144
-monitorable = false
+[node name="XRToolsSnapZone" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_snap")
+grab_distance = 0.35
+snap_mode = 0
+snap_require = "Shape"
+metadata/_custom_type_script = "uid://cddkke24eplce"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsSnapZone"]
 shape = SubResource("BoxShape3D_slot")

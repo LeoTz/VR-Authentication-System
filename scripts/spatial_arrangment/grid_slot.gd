@@ -76,6 +76,10 @@ func _setup_materials():
 	occupied_material.emission_energy_multiplier = 0.5
 
 func set_hovering_cube(cube: RigidBody3D):
+	# Don't accept hover if slot is occupied
+	if is_occupied:
+		return
+	
 	if hovering_cube == cube:
 		return
 	
@@ -87,7 +91,6 @@ func set_hovering_cube(cube: RigidBody3D):
 	
 	if cube:
 		hover_started.emit(self, cube)
-		print("Slot ", grid_position, " now hovering")
 	
 	_update_visual_state()
 
@@ -126,9 +129,49 @@ func lock_cube(cube: RigidBody3D):
 	# Emit signal
 	cube_locked.emit(self, cube)
 	
-	print("Cube locked at slot ", grid_position)
+	# Get the shape type and color for authentication logging
+	var shape_type = _get_shape_type(cube)
+	var color_name = _get_color_name(_get_cube_color(cube))
+	
+	# Standardized log format: COLOR|SHAPE|X,Y,Z
+	print("%s|%s|%d,%d,%d" % [color_name, shape_type, grid_position.x, grid_position.y, grid_position.z])
 	
 	return true
+
+func _get_shape_type(cube: Node3D) -> String:
+	# Identify shape type from CSG node
+	for child in cube.get_children():
+		if child is CSGBox3D:
+			return "Cube"
+		elif child is CSGSphere3D:
+			return "Sphere"
+		elif child is CSGCylinder3D:
+			return "Cylinder"
+		elif child is CSGTorus3D:
+			return "Torus"
+	return "Unknown"
+
+func _get_cube_color(cube: Node3D) -> Color:
+	# Find the CSG node and get its material color
+	for child in cube.get_children():
+		if child is CSGShape3D:
+			var material = child.material
+			if material and material is StandardMaterial3D:
+				return material.albedo_color
+	return Color.WHITE
+
+func _get_color_name(color: Color) -> String:
+	# Match color to name based on approximate values
+	if color.r > 0.7 and color.g < 0.3 and color.b < 0.3:
+		return "Red"
+	elif color.r < 0.3 and color.g > 0.7 and color.b < 0.3:
+		return "Green"
+	elif color.r < 0.3 and color.g < 0.3 and color.b > 0.7:
+		return "Blue"
+	elif color.r > 0.7 and color.g > 0.7 and color.b < 0.3:
+		return "Yellow"
+	else:
+		return "Unknown"
 
 func unlock_cube():
 	if not is_occupied or not locked_cube:

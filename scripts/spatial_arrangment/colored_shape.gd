@@ -1,7 +1,7 @@
 @tool
 extends "res://addons/godot-xr-tools/objects/pickable.gd"
 
-# Reference to the current slot this cube is in/near
+# Reference to the current slot this shape is in/near
 var current_slot: Node3D = null
 var best_hover_slot: Node3D = null
 var is_being_grabbed: bool = false
@@ -34,31 +34,22 @@ func _on_picked_up(pickable):
 	if current_slot and current_slot.has_method("unlock_cube"):
 		current_slot.unlock_cube()
 		current_slot = null
-	
-	print("Cube picked up")
 
 func _on_dropped(pickable):
 	is_being_grabbed = false
-	print("Cube dropped - best hover slot: ", best_hover_slot)
 	
 	# Small delay to ensure physics settle
 	await get_tree().create_timer(0.05).timeout
 	
 	# Snap to the best hover slot if available
 	if best_hover_slot and best_hover_slot.has_method("lock_cube"):
-		print("Attempting to lock cube into slot")
 		if best_hover_slot.lock_cube(self):
 			current_slot = best_hover_slot
-			print("Cube locked into slot at: ", current_slot.grid_position)
 			
 			# Clear hover state from the slot since it's now locked
 			if best_hover_slot.has_method("set_hovering_cube"):
 				best_hover_slot.set_hovering_cube(null)
 			best_hover_slot = null
-		else:
-			print("Failed to lock cube")
-	else:
-		print("No best hover slot available")
 
 func _update_best_hover_slot():
 	# Don't update hover if we're currently locked
@@ -83,7 +74,7 @@ func _update_best_hover_slot():
 		# Check distance to this slot
 		var distance = global_position.distance_to(slot.global_position)
 		
-		# Only consider slots within hover range (0.35/2 = 0.175m from center)
+		# Only consider slots within hover range (0.35m from center)
 		if distance < 0.35 and distance < closest_distance:
 			closest_distance = distance
 			new_best_slot = slot
@@ -99,6 +90,3 @@ func _update_best_hover_slot():
 			new_best_slot.set_hovering_cube(self)
 		
 		best_hover_slot = new_best_slot
-		
-		if new_best_slot:
-			print("Hovering over slot: ", new_best_slot.grid_position, " at distance: ", closest_distance)

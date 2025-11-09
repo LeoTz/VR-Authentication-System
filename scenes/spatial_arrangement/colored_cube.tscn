@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cx8qafwe5qa4p"]
+[gd_scene load_steps=12 format=3 uid="uid://cx8qafwe5qa4p"]
 
-[ext_resource type="Script" uid="uid://ngrbgrne883n" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_pickable"]
-[ext_resource type="Script" path="res://scripts/spatial_arrangment/colored_cube.gd" id="1_cube"]
+[ext_resource type="Script" path="res://scripts/spatial_arrangment/colored_shape.gd" id="1_cube"]
 [ext_resource type="Script" uid="uid://wc84rjki4u8l" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="2_b3mex"]
 [ext_resource type="Animation" uid="uid://dgfeikrugfewi" path="res://addons/godot-xr-tools/hands/animations/left/Cup.res" id="3_wkpth"]
 [ext_resource type="Script" uid="uid://disvih6j8e0gj" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_2gy36"]
@@ -27,8 +26,9 @@ closed_pose = ExtResource("5_noshr")
 metadata/_custom_type_script = "uid://disvih6j8e0gj"
 
 [node name="ColoredCube" type="RigidBody3D"]
-collision_layer = 262144
-collision_mask = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47271514, 0)
+collision_layer = 262147
+collision_mask = 3
 mass = 0.1
 script = ExtResource("1_cube")
 picked_up_layer = 2
