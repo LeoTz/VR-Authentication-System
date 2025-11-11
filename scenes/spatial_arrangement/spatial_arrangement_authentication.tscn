@@ -137,7 +137,6 @@ transform = Transform3D(1, -8.88174e-16, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.5064082
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, -0.08000004, -0.35)
 tracker = &"left_hand"
 
 [node name="Viewport2Din3D" parent="XROrigin3D/LeftHand" instance=ExtResource("1_00n0t")]
@@ -155,16 +154,16 @@ strafe = true
 
 [node name="XRToolsFunctionPickup" type="Node3D" parent="XROrigin3D/LeftHand"]
 script = ExtResource("3_00n0t")
+grab_collision_mask = 262149
+ranged_collision_mask = 5
 metadata/_custom_type_script = "uid://cvg3a5bex2g2a"
 
 [node name="FunctionPointer" parent="XROrigin3D/LeftHand" instance=ExtResource("7_i2rfh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00999999, -0.00999999, -0.07000002)
 show_laser = 2
 laser_length = 1
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, -0.08000004, -0.41)
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("4_g3g01")]
@@ -181,7 +180,6 @@ ranged_collision_mask = 5
 metadata/_custom_type_script = "uid://cvg3a5bex2g2a"
 
 [node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("7_i2rfh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14999998, -0.00999999, -0.01000002)
 show_laser = 2
 laser_length = 1
 
