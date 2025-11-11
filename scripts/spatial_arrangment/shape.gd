@@ -1,4 +1,3 @@
-@tool
 extends Node3D
 class_name Shape
 
@@ -56,7 +55,8 @@ func _create_shape(type : ShapeData.Types, color : ShapeData.Colors):
 		shape.freeze = true
 		shape.picked_up_layer = 2
 		shape.add_to_group('Shape')
-		
+		shape.gravity_scale = 0.75
+		shape.second_hand_grab = XRToolsPickable.SecondHandGrab.SWAP
 		# Apply the color
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = _get_color_from_enum(color)

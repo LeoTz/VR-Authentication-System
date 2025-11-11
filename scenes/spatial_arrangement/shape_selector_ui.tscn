@@ -1,0 +1,215 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4gmd0w8pkbyy"]
+
+[ext_resource type="Script" uid="uid://cneihoc8s4l37" path="res://scripts/spatial_arrangment/shape_selector_ui.gd" id="1_shape_selector"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_green"]
+bg_color = Color(0.1, 0.8, 0.1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blue"]
+bg_color = Color(0.1, 0.1, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yellow"]
+bg_color = Color(0.9, 0.9, 0.1, 1)
+
+[node name="ShapeSelectorUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shape_selector")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Select Shape"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row1" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="CubeRed" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_red")
+text = "■"
+icon_alignment = 1
+
+[node name="CubeGreen" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_green")
+text = "■"
+icon_alignment = 1
+
+[node name="CubeBlue" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_blue")
+text = "■"
+icon_alignment = 1
+
+[node name="CubeYellow" type="Button" parent="Panel/VBoxContainer/Row1"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_yellow")
+text = "■"
+icon_alignment = 1
+
+[node name="Row2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="SphereRed" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_red")
+text = "●"
+icon_alignment = 1
+
+[node name="SphereGreen" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_green")
+text = "●"
+icon_alignment = 1
+
+[node name="SphereBlue" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_blue")
+text = "●"
+icon_alignment = 1
+
+[node name="SphereYellow" type="Button" parent="Panel/VBoxContainer/Row2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_yellow")
+text = "●"
+icon_alignment = 1
+
+[node name="Row3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="CylinderRed" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_red")
+text = "⬬"
+icon_alignment = 1
+
+[node name="CylinderGreen" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_green")
+text = "⬬"
+icon_alignment = 1
+
+[node name="CylinderBlue" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_blue")
+text = "⬬"
+icon_alignment = 1
+
+[node name="CylinderYellow" type="Button" parent="Panel/VBoxContainer/Row3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_yellow")
+text = "⬬"
+icon_alignment = 1
+
+[node name="Row4" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="TorusRed" type="Button" parent="Panel/VBoxContainer/Row4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_red")
+text = "◯"
+icon_alignment = 1
+
+[node name="TorusGreen" type="Button" parent="Panel/VBoxContainer/Row4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_green")
+text = "◯"
+icon_alignment = 1
+
+[node name="TorusBlue" type="Button" parent="Panel/VBoxContainer/Row4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_blue")
+text = "◯"
+icon_alignment = 1
+
+[node name="TorusYellow" type="Button" parent="Panel/VBoxContainer/Row4"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_yellow")
+text = "◯"
+icon_alignment = 1
