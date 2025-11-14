@@ -5,6 +5,7 @@ signal pin_cleared()
 
 var current_pin: String = ""
 var max_length: int = 4
+var prompt_text: String = "Enter PIN"
 
 @onready var display: Label = $Panel/VBoxContainer/Display
 
@@ -45,13 +46,18 @@ func _on_enter_pressed():
 
 func update_display():
 	if current_pin.length() == 0:
-		display.text = "Enter PIN"
+		display.text = prompt_text
 	else:
 		# Show asterisks for entered digits
 		display.text = "*".repeat(current_pin.length())
 
 func clear_pin():
 	current_pin = ""
+	update_display()
+
+func set_prompt(text: String):
+	"""Set the prompt text shown when no PIN is entered"""
+	prompt_text = text
 	update_display()
 
 func get_pin() -> String:

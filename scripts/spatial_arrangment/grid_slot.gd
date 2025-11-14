@@ -102,15 +102,36 @@ func _on_object_snapped(pickable: XRToolsPickable):
 	locked_cube = pickable
 	hovering_cube = null
 	_update_visual_state()
-	print("Cube locked at slot ", grid_position)
+	
+	var color_name = _get_shape_color_name(pickable)
+	print(color_name, " Cube locked at slot ", grid_position)
 
 
 func _on_object_unsnapped(pickable: XRToolsPickable):
 	if locked_cube == pickable:
+		var color_name = _get_shape_color_name(pickable)
 		is_occupied = false
 		locked_cube = null
 		_update_visual_state()
-		print("Cube unlocked at slot ", grid_position)
+		print(color_name, " Cube unlocked at slot ", grid_position)
+
+
+func _get_shape_color_name(pickable: XRToolsPickable) -> String:
+	if pickable and pickable.get_parent() is Shape:
+		var shape = pickable.get_parent() as Shape
+		if shape.data:
+			match shape.data.color:
+				ShapeData.Colors.RED:
+					return "RED"
+				ShapeData.Colors.GREEN:
+					return "GREEN"
+				ShapeData.Colors.BLUE:
+					return "BLUE"
+				ShapeData.Colors.YELLOW:
+					return "YELLOW"
+				ShapeData.Colors.EMPTY:
+					return "EMPTY"
+	return "UNKNOWN"
 
 
 func _update_visual_state():

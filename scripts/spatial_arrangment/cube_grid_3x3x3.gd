@@ -1,6 +1,7 @@
 @tool
 extends Node3D
 
+signal grid_changed()
 
 @export var GRID_SIZE = 3  # 3x3x3 cube
 @export var SLOT_SIZE = 0.15
@@ -47,6 +48,13 @@ func _create_grid():
 				slot_array.append(slot)
 				slot_map[Vector3i(x, y, z)] = slot
 				
+				# Connect to slot's snap zone signals to detect changes
+				if not Engine.is_editor_hint():
+					var snap_zone = slot.get_node_or_null("XRToolsSnapZone")
+					if snap_zone:
+						snap_zone.has_picked_up.connect(_on_slot_changed)
+						snap_zone.has_dropped.connect(_on_slot_changed)
+				
 				# Make sure it's owned by the scene root for persistence
 				if Engine.is_editor_hint():
 					slot.owner = get_tree().edited_scene_root
@@ -72,3 +80,43 @@ func get_empty_slots() -> Array:
 		if not slot.is_occupied:
 			empty.append(slot)
 	return empty
+
+func get_grid_state() -> Array:
+	"""Returns array of dictionaries with position, type, and color for occupied slots"""
+	var state = []
+	
+	for slot in slot_array:
+		if slot.is_occupied and slot.locked_cube:
+			var pickable = slot.locked_cube
+			if pickable and pickable.get_parent() is Shape:
+				var shape = pickable.get_parent() as Shape
+				if shape.data:
+					state.append({
+						"position": slot.grid_position,
+						"type": shape.data.type,
+						"color": shape.data.color
+					})
+	
+	return state
+
+func clear_all_slots():
+	"""Removes all shapes from all slots"""
+	for slot in slot_array:
+		if slot.is_occupied and slot.locked_cube:
+			var pickable = slot.locked_cube
+			
+			# Manually reset slot state before freeing
+			slot.is_occupied = false
+			slot.locked_cube = null
+			slot.hovering_cube = null
+			slot._update_visual_state()
+			
+			# Free the shape
+			if pickable and pickable.get_parent():
+				pickable.get_parent().queue_free()
+	
+	grid_changed.emit()
+
+func _on_slot_changed(_pickable):
+	"""Called when any slot has a shape added or removed"""
+	grid_changed.emit()

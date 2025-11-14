@@ -6,6 +6,14 @@ const TORUS = preload("uid://dxs4dp7ewbwg8")
 const SPHERE = preload("uid://h5ixyu701hg7")
 const CYLINDER = preload("uid://fa52g5uavh3n")
 
+# Auto-deletion settings
+const DELETION_TIMEOUT = 10.0  # Seconds of inactivity before deletion
+const DELETION_HEIGHT = 0.1    # Y position below which to delete immediately (floor is at Y = -0.05)
+
+var last_interaction_time: float = 0.0
+var deletion_timer: Timer = null
+var pickable_child: XRToolsPickable = null
+
 @export var data: ShapeData:
 	set(value):
 		data = value.duplicate()
@@ -20,6 +28,25 @@ const CYLINDER = preload("uid://fa52g5uavh3n")
 func _ready():
 	if data:
 		_apply_data()
+	
+	# Setup deletion timer
+	deletion_timer = Timer.new()
+	deletion_timer.wait_time = DELETION_TIMEOUT
+	deletion_timer.one_shot = true
+	deletion_timer.timeout.connect(_on_deletion_timeout)
+	add_child(deletion_timer)
+	
+	last_interaction_time = Time.get_ticks_msec() / 1000.0
+
+func _process(delta):
+	# Check if shape has fallen below deletion threshold
+	if global_position.y < DELETION_HEIGHT:
+		queue_free()
+
+func _on_deletion_timeout():
+	# Check if shape is still not being interacted with
+	if pickable_child and not pickable_child.is_picked_up():
+		queue_free()
 
 func _get_color_from_enum(c : ShapeData.Colors):
 	match c:
@@ -57,12 +84,22 @@ func _create_shape(type : ShapeData.Types, color : ShapeData.Colors):
 		shape.add_to_group('Shape')
 		shape.gravity_scale = 0.75
 		shape.second_hand_grab = XRToolsPickable.SecondHandGrab.SWAP
+		
+		# Connect interaction signals
+		shape.picked_up.connect(_on_picked_up)
+		shape.dropped.connect(_on_dropped)
+		
 		# Apply the color
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = _get_color_from_enum(color)
 		shape.get_child(0).material = mat
 		
 		add_child(shape)
+		pickable_child = shape
+		
+		# Start deletion timer
+		if deletion_timer:
+			deletion_timer.start()
 		
 		# make persistent in editor
 		if Engine.is_editor_hint():
@@ -72,3 +109,13 @@ func _apply_data():
 	if not is_inside_tree():
 		return
 	_create_shape(data.type, data.color)
+
+func _on_picked_up(_pickable):
+	last_interaction_time = Time.get_ticks_msec() / 1000.0
+	if deletion_timer:
+		deletion_timer.stop()
+
+func _on_dropped(_pickable):
+	last_interaction_time = Time.get_ticks_msec() / 1000.0
+	if deletion_timer:
+		deletion_timer.start()

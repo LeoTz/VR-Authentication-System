@@ -1,12 +1,15 @@
-[gd_scene load_steps=32 format=3 uid="uid://dq7krnloi4j4u"]
+[gd_scene load_steps=35 format=3 uid="uid://dq7krnloi4j4u"]
 
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_00n0t"]
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_uttlm"]
 [ext_resource type="PackedScene" uid="uid://c4gmd0w8pkbyy" path="res://scenes/spatial_arrangement/shape_selector_ui.tscn" id="2_00n0t"]
+[ext_resource type="PackedScene" path="res://scenes/spatial_arrangement/spatial_password_choice_ui.tscn" id="2_choice"]
 [ext_resource type="Texture2D" uid="uid://b4nv7ygrefrqr" path="res://assets/Table/table_1.png" id="2_cp3lo"]
+[ext_resource type="PackedScene" path="res://scenes/spatial_arrangement/spatial_password_create_ui.tscn" id="2_create"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_kqwmr"]
 [ext_resource type="Script" uid="uid://cvg3a5bex2g2a" path="res://addons/godot-xr-tools/functions/function_pickup.gd" id="3_00n0t"]
 [ext_resource type="ArrayMesh" uid="uid://b46k04mxm8gnd" path="res://assets/Table/table.obj" id="3_hhgjh"]
+[ext_resource type="PackedScene" path="res://scenes/spatial_arrangement/spatial_password_login_ui.tscn" id="3_login"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="4_g3g01"]
 [ext_resource type="Texture2D" uid="uid://begqjwjq8ib05" path="res://assets/Table/table_0.png" id="4_n8pn5"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_i2rfh"]
@@ -14,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_ce4o1"]
 [ext_resource type="Texture2D" uid="uid://b5ewednjxecxb" path="res://assets/Table/tex/WoodSeemles1.jpg" id="6_uttlm"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="7_i2rfh"]
-[ext_resource type="PackedScene" uid="uid://ddrm0d56gt64h" path="res://scenes/spatial_arrangement/shape_table.tscn" id="7_kqwmr"]
+[ext_resource type="Script" uid="uid://dsoy28flg5adw" path="res://scripts/spatial_arrangment/spatial_password_authentication.gd" id="8_auth"]
 [ext_resource type="PackedScene" uid="uid://kqrq35pgeb0d" path="res://scenes/spatial_arrangement/cube_grid_3x3x3.tscn" id="13_uttlm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibkok"]
@@ -126,10 +129,6 @@ shape = SubResource("BoxShape3D_k3f2j")
 material_override = SubResource("StandardMaterial3D_8y5io")
 mesh = SubResource("BoxMesh_4sddj")
 
-[node name="ShapeTable" parent="." instance=ExtResource("7_kqwmr")]
-transform = Transform3D(1.9106853e-15, -1, -4.3711385e-08, -4.371138e-08, -4.371139e-08, 0.9999999, -0.99999994, -8.88174e-16, -4.371138e-08, -1.3399999, 1.3, 0.52)
-chosen_shapes = Array[int]([3, 1, 2, 0])
-
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, -8.88174e-16, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.5064082)
 
@@ -207,3 +206,29 @@ shape = SubResource("BoxShape3D_table_legs")
 
 [node name="CubeGrid3x3x3" parent="." instance=ExtResource("13_uttlm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17553, -2.8414083)
+
+[node name="PasswordAuthManager" type="Node3D" parent="."]
+script = ExtResource("8_auth")
+
+[node name="ChoiceViewport" parent="PasswordAuthManager" instance=ExtResource("1_00n0t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4570453, -0.34337276)
+screen_size = Vector2(0.5, 0.4)
+scene = ExtResource("2_choice")
+viewport_size = Vector2(600, 480)
+scene_properties_keys = PackedStringArray("spatial_password_choice_ui.gd")
+
+[node name="CreatePasswordViewport" parent="PasswordAuthManager" instance=ExtResource("1_00n0t")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -0.7949072, 1.4590309, -1.748578)
+visible = false
+screen_size = Vector2(0.5, 0.4)
+scene = ExtResource("2_create")
+viewport_size = Vector2(600, 480)
+scene_properties_keys = PackedStringArray("spatial_password_create_ui.gd")
+
+[node name="LoginPasswordViewport" parent="PasswordAuthManager" instance=ExtResource("1_00n0t")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -0.7851902, 1.4670674, -1.7459987)
+visible = false
+screen_size = Vector2(0.5, 0.4)
+scene = ExtResource("3_login")
+viewport_size = Vector2(600, 480)
+scene_properties_keys = PackedStringArray("spatial_password_login_ui.gd")

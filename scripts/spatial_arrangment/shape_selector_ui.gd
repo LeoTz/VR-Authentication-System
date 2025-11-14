@@ -90,7 +90,7 @@ func _setup_buttons():
 			button.pressed.connect(_on_shape_button_pressed.bind(shape_type, color_name))
 
 func _on_shape_button_pressed(shape_type: String, color_name: String):
-	print('clciked')
+	print('clicked')
 	var color_value = color_map.get(color_name, Color.WHITE)
 	
 	var shape = SHAPE.instantiate()

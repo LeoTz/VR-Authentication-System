@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://xfwoc5nkop1p"]
+[gd_scene load_steps=14 format=3 uid="uid://xfwoc5nkop1p"]
 
 [ext_resource type="Script" uid="uid://xihjhwpw4mig" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://coep7yqr1pr5x" path="res://scenes/xr_origin.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://p81hnarpn2d3" path="res://scenes/MainMenuUI.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://ctltchlf2j2r4" path="res://addons/xr-simulator/XRSimulator.tscn" id="5_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -82,7 +83,7 @@ transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 5, 2.5
 shape = SubResource("BoxShape3D_wall")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.7172261e-15, 1, -0.26229542, -1.1151538, -1.656394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.7172261e-15, 1, 0.010494895, -0.023992777, -0.0020532608)
 material_override = SubResource("StandardMaterial3D_wall")
 mesh = SubResource("BoxMesh_wall")
 
@@ -105,3 +106,5 @@ screen_size = Vector2(1280, 768)
 scene = ExtResource("4_tbgi4")
 viewport_size = Vector2(800, 480)
 unshaded = true
+
+[node name="XRSimulator" parent="." instance=ExtResource("5_tbgi4")]
