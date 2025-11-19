@@ -79,6 +79,11 @@ func _setup_materials():
 	occupied_material.emission = Color(1.0, 0.5, 0.1, 1.0)  # Orange glow
 	occupied_material.emission_energy_multiplier = 0.5
 
+func turn_off_snapzone():
+	snap_zone.snap_require = 'temp'
+
+func turn_on_snapzone():
+	snap_zone.snap_require = 'Shape'
 
 # --- SnapZone Event Handlers ---
 

@@ -2,6 +2,7 @@
 extends Node3D
 
 signal grid_changed()
+signal grid_dropped()
 
 @export var GRID_SIZE = 3  # 3x3x3 cube
 @export var SLOT_SIZE = 0.15
@@ -54,7 +55,7 @@ func _create_grid():
 					if snap_zone:
 						snap_zone.has_picked_up.connect(_on_slot_changed)
 						snap_zone.has_dropped.connect(_on_slot_changed)
-				
+						snap_zone.has_dropped.connect(_on_grid_dropped)
 				# Make sure it's owned by the scene root for persistence
 				if Engine.is_editor_hint():
 					slot.owner = get_tree().edited_scene_root
@@ -117,6 +118,17 @@ func clear_all_slots():
 	
 	grid_changed.emit()
 
+func turn_off_snapzone():
+	for slot in slot_array:
+		slot.turn_off_snapzone()
+
+func turn_on_snapzone():
+	for slot in slot_array:
+		slot.turn_on_snapzone()
+
 func _on_slot_changed(_pickable):
 	"""Called when any slot has a shape added or removed"""
 	grid_changed.emit()
+
+func _on_grid_dropped(_pickable):
+	grid_dropped.emit()

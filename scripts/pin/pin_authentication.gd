@@ -13,6 +13,7 @@ var temp_pin: String = ""  # Store PIN during creation for confirmation
 
 # Password storage settings
 const PIN_FILE_PATH = "user://pin_password.cfg"
+const DEV_PIN_FILE_PATH = "res://pin_password.cfg"
 
 # Authentication settings
 @export var default_pin: String = "1234"
@@ -25,6 +26,10 @@ var correct_pin: String = ""
 var current_attempts: int = 0
 var is_locked_out: bool = false
 var lockout_timer: float = 0.0
+var time_elapsed: float = 0.0
+var timer_started: bool = false
+var backspaces_count: int = 0
+var current_pin: String = ""
 
 # Node references
 @onready var choice_ui = $ChoiceViewport/Viewport/PinChoiceUI
@@ -60,6 +65,8 @@ func _ready():
 	# Connect to keypad signals
 	if keypad_ui:
 		keypad_ui.pin_entered.connect(_on_pin_entered)
+		keypad_ui.pin_cleared.connect(_on_pin_cleared)
+		keypad_ui.pin_num_pressed.connect(_on_pin_num_pressed)
 		print("Keypad connected successfully")
 	else:
 		print("ERROR: Could not find KeypadUI!")
@@ -68,6 +75,8 @@ func _ready():
 	set_state(AuthState.CHOICE)
 
 func _process(delta):
+	if timer_started:
+		time_elapsed += delta
 	if is_locked_out:
 		lockout_timer -= delta
 		if lockout_timer <= 0:
@@ -144,7 +153,7 @@ func _on_pin_entered(pin: String):
 		if pin == temp_pin:
 			# PINs match - save it
 			correct_pin = pin
-			save_pin()
+			save_pin('sign_up')
 			show_message("PIN SAVED!", Color.GREEN)
 			await get_tree().create_timer(1.5).timeout
 			set_state(AuthState.CHOICE)
@@ -167,10 +176,22 @@ func _on_pin_entered(pin: String):
 	else:
 		authenticate_failure()
 
+func _on_pin_num_pressed(digit : String):
+	timer_started = true
+	current_pin += digit
+
+func _on_pin_cleared():
+	if current_pin != "":
+		current_pin = current_pin.left(current_pin.length() - 1)
+		backspaces_count += 1
+	
+	print(backspaces_count)
+	print(time_elapsed)
+
 func authenticate_success():
 	print("✓ Authentication successful!")
 	show_message("ACCESS GRANTED", Color.GREEN)
-	
+	save_pin('sign_in')
 	# Wait a moment before transitioning
 	await get_tree().create_timer(1.5).timeout
 	
@@ -249,7 +270,7 @@ func cleanup_xr():
 # Helper functions for testing or external control
 func set_pin(new_pin: String):
 	correct_pin = new_pin
-	save_pin()
+	save_pin('sign_up')
 	print("PIN changed to: " + correct_pin)
 
 func reset_attempts():
@@ -258,16 +279,28 @@ func reset_attempts():
 	lockout_timer = 0.0
 	print("Attempts reset")
 
-func save_pin():
+func reset_tracking_stats():
+	timer_started = false
+	time_elapsed = 0
+	current_pin = ""
+	backspaces_count = 0
+	print("Stats reset")
+	
+func save_pin(section : String = ""):
 	"""Save the PIN to a config file"""
 	var config = ConfigFile.new()
-	config.set_value("authentication", "pin", correct_pin)
-	
+	if section == 'sign_in':
+		config.load('user://pin_password.cfg')
+	config.set_value(section, "pin", correct_pin)
+	config.set_value(section, "time_elapsed", time_elapsed)
+	config.set_value(section, "number_of_backspaces", backspaces_count)
+	config.set_value(section, "number_of_unsuccessful_attempts", current_attempts)
 	var err = config.save(PIN_FILE_PATH)
 	if err == OK:
 		print("PIN saved to: ", PIN_FILE_PATH)
 	else:
 		print("Error saving PIN: ", err)
+	reset_tracking_stats()
 
 func load_pin():
 	"""Load the PIN from config file"""
@@ -277,7 +310,7 @@ func load_pin():
 	if err != OK:
 		print("No saved PIN found, using default: ", default_pin)
 		correct_pin = default_pin
-		save_pin()  # Save the default PIN for next time
+		save_pin('sign_up')  # Save the default PIN for next time
 		return
 	
 	correct_pin = config.get_value("authentication", "pin", default_pin)

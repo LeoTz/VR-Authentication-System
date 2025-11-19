@@ -2,6 +2,7 @@ extends Control
 
 signal pin_entered(pin: String)
 signal pin_cleared()
+signal pin_num_pressed(digit: String)
 
 var current_pin: String = ""
 var max_length: int = 4
@@ -27,6 +28,7 @@ func _on_digit_pressed(digit: String):
 	if current_pin.length() < max_length:
 		current_pin += digit
 		update_display()
+		pin_num_pressed.emit(digit)
 		print("PIN: ", current_pin)
 
 func _on_backspace_pressed():

@@ -12,9 +12,15 @@ enum AuthState {
 const PASSWORD_FILE_PATH = "user://spatial_password.cfg"
 
 var current_state: AuthState = AuthState.CHOICE
+# moved password to global script because reloading scenes deletes this var.
 var stored_password: Array = []  # Array of dictionaries with position, type, and color
 var max_attempts: int = 3
 var current_attempts: int = 0
+var blocks_placed: int = 0
+var time_elapsed: float = 0.0
+var grid_dropped_count : int = 0
+var timer_started: bool = false
+
 
 # Node references
 @onready var choice_ui_viewport = $ChoiceViewport/Viewport/SpatialPasswordChoiceUI
@@ -58,12 +64,17 @@ func _ready():
 	# Connect to grid signals
 	if cube_grid:
 		cube_grid.grid_changed.connect(_on_grid_changed)
+		cube_grid.grid_dropped.connect(_on_grid_dropped)
 	
 	# Load saved password if it exists
-	load_password()
+	load_password('sign_up')
 	
 	# Start with choice state
 	set_state(AuthState.CHOICE)
+
+func _process(delta: float) -> void:
+	if timer_started:
+		time_elapsed += delta
 
 func set_state(new_state: AuthState):
 	current_state = new_state
@@ -165,15 +176,29 @@ func _on_choice_login():
 func _on_choice_create():
 	set_state(AuthState.CREATE_PASSWORD)
 
-func _on_grid_changed():
+func _on_grid_changed():	
 	var grid_state = get_current_grid_state()
 	var blocks_count = grid_state.size()
+	
+	if not timer_started and blocks_count != 0:
+		timer_started = true
+	
+	if blocks_count >= 4:
+		hide_shape_table()
+		cube_grid.turn_off_snapzone()
+	else:
+		show_shape_table()
+		cube_grid.turn_on_snapzone()
 	
 	# Update UI based on current state
 	if current_state == AuthState.CREATE_PASSWORD and create_ui_viewport:
 		create_ui_viewport.update_blocks_count(blocks_count)
 	elif current_state == AuthState.LOGIN and login_ui_viewport:
 		login_ui_viewport.update_blocks_count(blocks_count)
+
+
+func _on_grid_dropped():
+	grid_dropped_count += 1
 
 func _on_password_created(_data):
 	# Get the current grid state
@@ -183,9 +208,8 @@ func _on_password_created(_data):
 		if create_ui_viewport:
 			create_ui_viewport.show_message("Please place at least one block!", Color.ORANGE_RED)
 		return
-	
 	# Save password to file
-	save_password()
+	save_password('sign_up')
 	
 	print("Password created with ", stored_password.size(), " blocks")
 	if create_ui_viewport:
@@ -194,6 +218,8 @@ func _on_password_created(_data):
 	# Wait a moment then reload the scene
 	await get_tree().create_timer(1.5).timeout
 	get_tree().reload_current_scene()
+	
+	
 
 func _on_create_cleared():
 	clear_grid()
@@ -241,6 +267,8 @@ func authenticate_success():
 	if login_ui_viewport:
 		login_ui_viewport.show_message("ACCESS GRANTED", Color.GREEN)
 	
+	save_password('sign_in')
+	
 	# Wait a moment before transitioning to main scene
 	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
@@ -263,23 +291,31 @@ func authenticate_failure():
 		await get_tree().create_timer(1.5).timeout
 		clear_grid()
 
-func save_password():
+func save_password(section : String = ""):
 	"""Save the password to a config file"""
 	var config = ConfigFile.new()
+	
+	if section == 'sign_in':
+		config.load(PASSWORD_FILE_PATH)
 	
 	# Store each block's data
 	for i in range(stored_password.size()):
 		var block = stored_password[i]
-		var section = "block_" + str(i)
+		var _section = "block_" + str(i)
 		
-		config.set_value(section, "position_x", block.position.x)
-		config.set_value(section, "position_y", block.position.y)
-		config.set_value(section, "position_z", block.position.z)
-		config.set_value(section, "type", block.type)
-		config.set_value(section, "color", block.color)
+		config.set_value(section, _section + "_position_x", block.position.x)
+		config.set_value(section, _section + "_position_y", block.position.y)
+		config.set_value(section, _section + "_position_z", block.position.z)
+		config.set_value(section, _section + "_type", block.type)
+		config.set_value(section, _section + "_color", block.color)
 	
 	# Store total count
-	config.set_value("metadata", "block_count", stored_password.size())
+	config.set_value(section, "block_count", stored_password.size())
+	config.set_value(section, "time_elapsed", time_elapsed)
+	config.set_value(section, "number_of_grid_changes", grid_dropped_count)
+	config.set_value(section, "number_of_unsuccessful_attempts", current_attempts)
+	
+	_reset_stats()
 	
 	var err = config.save(PASSWORD_FILE_PATH)
 	if err == OK:
@@ -287,7 +323,7 @@ func save_password():
 	else:
 		print("Error saving password: ", err)
 
-func load_password():
+func load_password(section:String):
 	"""Load the password from config file"""
 	var config = ConfigFile.new()
 	var err = config.load(PASSWORD_FILE_PATH)
@@ -297,19 +333,18 @@ func load_password():
 		stored_password = []
 		return
 	
-	var block_count = config.get_value("metadata", "block_count", 0)
+	var block_count = config.get_value(section, "block_count", 0)
 	stored_password = []
-	
 	for i in range(block_count):
-		var section = "block_" + str(i)
+		var _section = "block_" + str(i)
 		var block = {
 			"position": Vector3i(
-				config.get_value(section, "position_x"),
-				config.get_value(section, "position_y"),
-				config.get_value(section, "position_z")
+				config.get_value(section, _section + "_position_x"),
+				config.get_value(section, _section + "_position_y"),
+				config.get_value(section, _section + "_position_z")
 			),
-			"type": config.get_value(section, "type"),
-			"color": config.get_value(section, "color")
+			"type": config.get_value(section, _section + "_type"),
+			"color": config.get_value(section, _section + "_color")
 		}
 		stored_password.append(block)
 	
@@ -321,3 +356,9 @@ func delete_password():
 		DirAccess.remove_absolute(PASSWORD_FILE_PATH)
 		print("Password file deleted")
 	stored_password = []
+
+func _reset_stats():
+	timer_started = false
+	time_elapsed = 0.0
+	grid_dropped_count = 0
+	current_attempts = 0
