@@ -169,7 +169,7 @@ tracker = &"right_hand"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17999999, 0, 0)
 
 [node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("5_i2rfh")]
-turn_mode = 1
+turn_mode = 2
 step_turn_angle = 45.0
 
 [node name="XRToolsFunctionPickup" type="Node3D" parent="XROrigin3D/RightHand"]
@@ -186,7 +186,10 @@ laser_length = 1
 collision_mask = 1021
 
 [node name="Table" type="StaticBody3D" parent="."]
-transform = Transform3D(-3.9340248e-10, 0, -0.013, 0, 0.009, 0, 0.009, 0, -5.6824806e-10, -0.004194975, 0.2833146, -2.9629002)
+transform = Transform3D(-3.9340248e-10, 0, -0.013, 0, 0.009, 0, 0.009, 0, -5.6824806e-10, -0.004194975, 0.2833146, -3.050062)
+visible = false
+collision_layer = 0
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Table"]
 material_override = SubResource("StandardMaterial3D_axbcy")
